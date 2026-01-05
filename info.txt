@@ -13,9 +13,9 @@ Bookings
 - Purpose: Create a new booking
 - Request (JSON):
   {
-    "name": "John Doe",
-    "phone": "8072319273",
-    "serviceType": "Wedding",
+    "name": "Gowri D",
+    "phone": "877434706",
+    "serviceType": "Corporate Events",
     "date": "2026-01-10",
     "time": "10:30",
     "message": "Optional notes"
