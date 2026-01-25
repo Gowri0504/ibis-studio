@@ -1,10 +1,7 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import BeforeAfterSlider from '../components/BeforeAfterSlider';
-import ReelsSection from '../components/ReelsSection';
-import WorkCarousel from '../components/WorkCarousel';
-import YouTubeEmbed from '../components/YouTubeEmbed';
 import { FaCamera, FaVideo, FaPhotoVideo, FaBaby, FaRing, FaUsers } from 'react-icons/fa';
 
 const ServiceCard = ({ icon, title, desc, delay }) => (
@@ -24,89 +21,117 @@ const ServiceCard = ({ icon, title, desc, delay }) => (
 );
 
 const Home = () => {
+  const ownerName = 'IBIS Studio';
+  const carouselRef = useRef(null);
+  const [mood, setMood] = useState('Cinematic');
+  const scrollBy = (dx) => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollBy({ left: dx, behavior: 'smooth' });
+    }
+  };
+  useEffect(() => {
+    const id = setInterval(() => {
+      scrollBy(600);
+    }, 3500);
+    return () => clearInterval(id);
+  }, []);
   return (
     <div className="min-h-screen bg-ibis-dark text-white overflow-hidden relative">
       <div className="grain-overlay"></div>
-      
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Video */}
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover scale-105"
-        >
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-golden-glitters-in-a-dark-room-in-motion-41830-large.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-ibis-dark mix-blend-multiply"></div>
-        <div className="absolute inset-0 bg-black/30"></div>
-        
-        {/* Golden Particles/Glow */}
-        <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_center,_var(--color-ibis-gold)_0%,_transparent_70%)] blur-[100px]"></div>
-
-        <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            {/* Removed text as requested */}
-            <h1 className="text-5xl md:text-7xl lg:text-9xl font-bold text-white mb-8 leading-tight drop-shadow-2xl">
-              Capture Your <br />
-              <span className="text-gradient-gold italic relative inline-block">
-                Moments
-                <span className="absolute -top-4 -right-8 text-4xl animate-bounce">✨</span>
-              </span>
+      {/* Hero split layout inspired by provided photo */}
+      <section className="relative min-h-[80vh] overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-ibis-dark via-ibis-card to-ibis-dark"></div>
+        <div className="container mx-auto px-6 relative z-10 grid grid-cols-1 md:grid-cols-2 gap-10 items-center py-20">
+          <div>
+            <div className="text-xs tracking-[0.3em] text-gray-400 uppercase mb-4">Fashion Photographer</div>
+            <h1 className="text-5xl md:text-6xl font-serif font-bold leading-[1.1] mb-4">
+              <span className="text-gradient-gold">{ownerName}</span> <br/> Photography
             </h1>
-            <p className="text-lg md:text-xl text-gray-200 mb-12 max-w-2xl mx-auto font-light leading-relaxed drop-shadow-md">
-              We don't just take pictures; we craft timeless memories with elegance, passion, and perfection.
+            <p className="text-gray-300 mb-8 max-w-md">
+              Specializing in fashion, street style, events, and portrait artistry with a signature gold aesthetic.
             </p>
-            
-            <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
-              <Link to="/booking" className="btn-gold-shine px-10 py-4 rounded-full font-bold tracking-wider uppercase">
-                Book Appointment
-              </Link>
-              <Link to="/gallery" className="px-10 py-4 border border-white/30 text-white hover:border-ibis-gold hover:text-ibis-gold rounded-full transition-all duration-300 backdrop-blur-sm hover:bg-white/5 font-medium tracking-wide">
-                View Portfolio
-              </Link>
+            <div className="flex flex-col sm:flex-row gap-6">
+              <Link to="/booking" className="btn-gold-shine px-8 py-3 rounded-full font-bold">Let’s Capture The Moment</Link>
+              <Link to="/services" className="px-8 py-3 border border-ibis-gold/40 text-ibis-gold rounded-full hover:bg-ibis-gold hover:text-black transition">Explore Services</Link>
             </div>
-          </motion.div>
+          </div>
+          <div className="relative">
+            <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl h-[420px]">
+              <img
+                src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200"
+                alt="Latest work"
+                className="w-full h-[420px] object-cover"
+              />
+              <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full border-4 border-ibis-gold/70"></div>
+                <div className="absolute top-6 right-6 text-2xl text-ibis-gold">+</div>
+                <div className="absolute bottom-8 left-8 text-2xl text-ibis-gold/80">+</div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        {/* Scroll Indicator */}
-        <motion.div 
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/50"
-        >
-          <div className="w-[1px] h-20 bg-gradient-to-b from-transparent via-ibis-gold to-transparent mx-auto"></div>
-          <span className="text-[10px] tracking-[0.2em] uppercase mt-3 block text-ibis-gold">Scroll</span>
-        </motion.div>
       </section>
 
-      {/* Featured Video Section */}
-      <section className="py-20 bg-ibis-dark relative">
-         <div className="container mx-auto px-6">
-            <div className="text-center mb-12">
-               <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-4">Cinematic <span className="text-gradient-gold">Experience</span></h2>
-               <p className="text-gray-400">Watch our latest highlight reel.</p>
+      {/* HD swipe carousel */}
+      <section className="py-16 bg-ibis-card">
+        <div className="container mx-auto px-6">
+          <div className="flex items-end justify-between mb-6">
+            <div>
+              <div className="text-xs tracking-[0.3em] text-gray-400 uppercase">Our Newest Work</div>
             </div>
-            <div className="max-w-4xl mx-auto">
-               <YouTubeEmbed videoId="SyDuzDIzAgY" />
+            <div className="flex gap-3">
+              <button onClick={() => scrollBy(-600)} className="px-4 py-2 border border-ibis-gold/40 text-ibis-gold rounded">←</button>
+              <button onClick={() => scrollBy(600)} className="px-4 py-2 border border-ibis-gold/40 text-ibis-gold rounded">→</button>
             </div>
-         </div>
+          </div>
+          <div
+            ref={carouselRef}
+            className="flex overflow-x-auto gap-6 pb-4 snap-x scrollbar-hide"
+            onKeyDown={(e) => {
+              if (e.key === 'ArrowRight') scrollBy(600);
+              if (e.key === 'ArrowLeft') scrollBy(-600);
+            }}
+            tabIndex={0}
+          >
+            {[
+              'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200',
+              'https://images.unsplash.com/photo-1520975916090-3105956daf54?q=80&w=1200',
+              'https://images.unsplash.com/photo-1511285560982-1356c11d4606?q=80&w=1200',
+              'https://images.unsplash.com/photo-1549388604-817d15aa0110?q=80&w=1200',
+            ].map((src, i) => (
+              <motion.div key={i} whileHover={{ scale: 1.02 }} className="min-w-[280px] md:min-w-[360px] snap-center rounded-xl overflow-hidden border border-white/10">
+                <img src={src} alt={`work-${i}`} className="w-full h-48 md:h-60 object-cover" />
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-10 p-6 rounded-2xl border border-white/10 glass-card">
+            <div className="text-xl md:text-2xl font-serif mb-4">
+              LET US HELP YOU PRESERVE THE PRECIOUS MOMENTS OF YOUR LIFE!
+            </div>
+            <div className="flex flex-wrap gap-3 items-center">
+              <span className="text-sm text-gray-400">Choose your vibe:</span>
+              {['Cinematic', 'Classic', 'Editorial', 'Playful'].map((label) => (
+                <button
+                  key={label}
+                  onClick={() => setMood(label)}
+                  className={`px-4 py-2 rounded-full text-sm border ${
+                    mood === label
+                      ? 'border-ibis-gold bg-ibis-gold text-black'
+                      : 'border-white/15 text-gray-300 hover:border-ibis-gold/60 hover:text-ibis-gold'
+                  } transition`}
+                >
+                  {label}
+                </button>
+              ))}
+              <span className="text-sm text-gray-300 ml-auto">
+                Current style: <span className="text-ibis-gold font-semibold">{mood}</span>
+              </span>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* Work Carousel Section */}
-      <WorkCarousel />
-
-      {/* Services Section */}
-      <section className="py-24 relative bg-[#0F0F0F]">
+      <section className="py-24 relative bg-ibis-card">
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-6xl font-bold mb-6 section-title-decoration">Our <span className="text-gradient-gold">Expertise</span></h2>
@@ -160,9 +185,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Magic Editing Section */}
       <section className="py-24 bg-ibis-card relative overflow-hidden">
-        {/* Decorative elements */}
         <div className="absolute top-0 left-0 w-64 h-64 bg-ibis-gold/5 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl"></div>
 
@@ -188,31 +211,17 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      {/* Reels Section */}
-      <section className="py-24">
+      <section className="py-16 bg-gradient-to-b from-ibis-dark to-ibis-card border-t border-white/5">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Trending <span className="text-ibis-gold">Reels</span></h2>
-            <p className="text-gray-400">Catch the vibe of our latest shoots</p>
-          </div>
-          <ReelsSection />
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-20 border-t border-white/5 bg-gradient-to-b from-ibis-dark to-black">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             {[
-              { number: "5+", label: "Years Experience" },
-              { number: "500+", label: "Happy Clients" },
-              { number: "10k+", label: "Photos Clicked" },
-              { number: "100%", label: "Satisfaction" }
-            ].map((stat, idx) => (
-              <div key={idx} className="p-4">
-                <h3 className="text-4xl md:text-5xl font-serif font-bold text-ibis-gold mb-2">{stat.number}</h3>
-                <p className="text-gray-500 text-sm uppercase tracking-widest">{stat.label}</p>
+              { title: 'Crafted Quality', desc: 'Editorial-grade curation and delivery' },
+              { title: 'Premium Experience', desc: 'White-glove client service' },
+              { title: 'Signature Style', desc: 'Iconic gold aesthetic and tone' },
+            ].map((it, idx) => (
+              <div key={idx} className="p-6 glass-card rounded-2xl">
+                <div className="text-2xl font-serif font-bold mb-2 text-ibis-gold">{it.title}</div>
+                <div className="text-gray-400">{it.desc}</div>
               </div>
             ))}
           </div>

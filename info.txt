@@ -1,12 +1,30 @@
-IBIS Studio API Reference
+IBIS Studio Project Documentation
 
-Base URL
-- http://localhost:5000
+Overview
+- Stack: MERN (MongoDB, Express, React, Node.js), Tailwind CSS v4, Framer Motion
+- Features: Login/Register, role-based dashboards, booking system, admin media upload, user media download
+- Frontend Dev URL: http://localhost:5173/
+- Backend Base URL: http://localhost:5000
+
+Setup
+- Create server .env with:
+  - MONGO_URI=mongodb+srv://user:user@cluster0.xmpxko1.mongodb.net/?appName=Cluster0
+  - JWT_SECRET=change-this-secret
+  - ADMIN_EMAIL=admin@ibis.local
+  - ADMIN_PASSWORD=Admin@123
+- Start backend: cd server && npm run dev
+- Start frontend: cd client && npm run dev
+
+Admin Login
+- Email: admin@ibis.local
+- Password: Admin@123
+- Admin panel: http://localhost:5173/admin
+- Note: Admin is auto-seeded on server start when ADMIN_PASSWORD is set
 
 Health
 - GET /
 - Returns: "IBIS Studio API is running"
-- Defined in: server/index.js:21
+- Defined in: server/index.js
 
 Bookings
 - POST /api/bookings
@@ -21,14 +39,51 @@ Bookings
     "message": "Optional notes"
   }
 - Response: 201 Created, booking object with status "Pending" and createdAt
-- Defined in: server/routes/booking.js:7
-- Model fields: server/models/Booking.js:4
+- Defined in: server/routes/booking.js
+- Model fields: server/models/Booking.js
 
 - GET /api/bookings
 - Purpose: List all bookings (newest first)
 - Response: 200 OK, array of booking objects
-- Defined in: server/routes/booking.js:26
+- Defined in: server/routes/booking.js
+
+Auth
+- POST /api/auth/register
+- Purpose: Create user (email admin@ibis.local becomes role "admin")
+- Response: { token, user { id, name, role } }
+- POST /api/auth/login
+- Purpose: Login and obtain JWT
+- Response: { token, user { id, name, role } }
+
+Media (User)
+- GET /api/media/mine
+- Purpose: List user’s media (requires Authorization: Bearer <token>)
+- Response: Array of media items
+
+Admin
+- GET /api/admin/users
+- Purpose: List users (requires admin JWT)
+- POST /api/admin/media
+- Purpose: Upload media to a user
+- Options:
+- a) Multipart: fields { userEmail, title, type }, file key "file"
+- b) JSON: { userEmail, title, type, driveLink } or { userEmail, title, type, url }
+- GET /api/admin/bookings
+- Purpose: List bookings for management
+- PATCH /api/admin/bookings/:id
+- Purpose: Update booking status/response { status, adminResponse }
 
 Notes
 - CORS enabled: server/index.js:14
 - JSON body parsing enabled: server/index.js:15
+
+Frontend Routes
+- /            Home (gold theme, service grid, retouching section)
+- /services    Services showcase
+- /booking     Booking form
+- /about       Studio background
+- /contact     Address + Google Maps + WhatsApp link
+- /login       User/Admin login
+- /register    User/Admin registration
+- /dashboard   User: My Media (download)
+- /admin       Admin: Upload media, manage users/bookings

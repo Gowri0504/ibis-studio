@@ -14,6 +14,7 @@ const Booking = () => {
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [alertMsg, setAlertMsg] = useState('');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,7 +24,7 @@ const Booking = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post('http://localhost:5000/api/bookings', formData);
+      await axios.post('http://localhost:5001/api/bookings', formData);
       
       const text = `Hi IBIS Studio, I want to book a photoshoot.%0AName: ${formData.name}%0AService: ${formData.serviceType}%0ADate: ${formData.date}`;
       window.open(`https://wa.me/918072319273?text=${text}`, '_blank');
@@ -33,7 +34,7 @@ const Booking = () => {
     } catch (error) {
       console.error('Booking Error:', error);
       setLoading(false);
-      alert('Something went wrong. Please try again.');
+      setAlertMsg('Something went wrong. Please try again.');
     }
   };
 
@@ -215,6 +216,15 @@ const Booking = () => {
           </motion.div>
         </div>
       </div>
+      {alertMsg && (
+        <div className="alert-center">
+          <div className="alert-card">
+            <div className="text-xl font-serif font-bold mb-2">Alert</div>
+            <div className="text-gray-200 mb-4">{alertMsg}</div>
+            <button onClick={() => setAlertMsg('')} className="btn-gold-shine px-6 py-2 rounded">OK</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

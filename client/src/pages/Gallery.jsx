@@ -7,25 +7,24 @@ const Gallery = () => {
       <div className="container mx-auto px-4">
         <h1 className="text-4xl font-bold text-center mb-8 text-ibis-gold">Our Portfolio</h1>
         <p className="text-center text-gray-400 mb-12">Explore our collection of captured moments.</p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Example Gallery Items - Placeholders since we don't have direct image URLs yet */}
-          {[1, 2, 3, 4, 5, 6].map((item) => (
-            <motion.div 
-              key={item}
-              whileHover={{ scale: 1.05 }}
-              className="bg-gray-800 rounded-lg overflow-hidden h-64 relative group"
-            >
-              <img 
-                src={`https://source.unsplash.com/random/800x600?wedding,portrait,${item}`} 
-                alt="Gallery Item" 
-                className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition"
-              />
-              <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition">
-                <span className="text-ibis-gold font-bold">View Full</span>
-              </div>
-            </motion.div>
-          ))}
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="rounded-2xl overflow-hidden border border-white/10 glass-card">
+            <div className="p-4 text-ibis-gold font-semibold">Wedding & Event Photos</div>
+            <iframe
+              src="https://drive.google.com/embeddedfolderview?id=1FgmzeIcwFm5OmBNI5Yss36J4cne5WxxI#grid"
+              className="w-full h-[520px] bg-black"
+              title="Drive Wedding & Events"
+            />
+          </motion.div>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="rounded-2xl overflow-hidden border border-white/10 glass-card">
+            <div className="p-4 text-ibis-gold font-semibold">More Collections</div>
+            <iframe
+              src="https://drive.google.com/embeddedfolderview?id=1_oapHE8t3WfNHq66lSc6kWxq_Yoe0Nw-#grid"
+              className="w-full h-[520px] bg-black"
+              title="Drive More Collections"
+            />
+          </motion.div>
         </div>
 
         <div className="text-center mt-12 space-y-4">

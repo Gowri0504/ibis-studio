@@ -16,6 +16,7 @@ router.post('/', async (req, res) => {
       message
     });
     const savedBooking = await newBooking.save();
+    console.log('Booking created:', savedBooking._id);
     res.status(201).json(savedBooking);
   } catch (error) {
     res.status(500).json({ error: error.message });

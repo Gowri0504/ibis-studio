@@ -4,15 +4,15 @@
   --color-ibis-gold: #D4AF37;
   --color-ibis-gold-light: #F4C430;
   --color-ibis-gold-dark: #AA8C2C;
-  --color-ibis-dark: #0F0F0F;
-  --color-ibis-card: #1A1A1A;
-  --color-ibis-gray: #2A2A2A;
+  --color-ibis-dark: #120E07;
+  --color-ibis-card: #1B140A;
+  --color-ibis-gray: #2A2216;
   
   --font-sans: 'Montserrat', sans-serif;
   --font-serif: 'Playfair Display', serif;
 
   --image-gold-gradient: linear-gradient(135deg, #D4AF37 0%, #F4C430 50%, #AA8C2C 100%);
-  --image-dark-gradient: linear-gradient(to bottom, #0F0F0F, #1A1A1A);
+  --image-dark-gradient: linear-gradient(to bottom, #120E07, #1B140A);
 }
 
 @keyframes shimmer {
@@ -31,11 +31,11 @@
 }
 
 body {
-  background-color: #0F0F0F;
+  background-color: #120E07;
   color: #f3f3f3;
   font-family: 'Montserrat', sans-serif;
   overflow-x: hidden;
-  background-image: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #0F0F0F 100%);
+  background-image: radial-gradient(circle at 50% 0%, #1B140A 0%, #120E07 100%);
 }
 
 .grain-overlay {
@@ -60,7 +60,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0F0F0F;
+  background: #120E07;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -162,4 +162,27 @@ h1, h2, h3, h4, h5, h6 {
   width: 60px;
   height: 1px;
   background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+}
+
+.alert-center {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.6);
+  z-index: 10000;
+}
+
+.alert-card {
+  max-width: 480px;
+  width: 90%;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(212,175,55,0.25);
+  box-shadow: 0 0 30px rgba(212,175,55,0.15);
+  border-radius: 16px;
+  color: #fff;
+  padding: 24px;
+  text-align: center;
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaBars, FaTimes, FaWhatsapp } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
+import logo from '../assets/images/logo.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,13 +17,32 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
+  const baseLinks = [
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Services', path: '/services' },
     { name: 'Gallery', path: '/gallery' },
     { name: 'Contact', path: '/contact' },
   ];
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+  const role = typeof window !== 'undefined' ? localStorage.getItem('role') : null;
+  const userName = typeof window !== 'undefined' ? localStorage.getItem('userName') : null;
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    localStorage.removeItem('userName');
+    window.location.href = '/';
+  };
+  const navLinks = (() => {
+    if (!token) return baseLinks;
+    if (role === 'admin') return [{ name: 'Admin', path: '/admin' }];
+    return [
+      { name: 'Home', path: '/' },
+      { name: 'Services', path: '/services' },
+      { name: 'Booking', path: '/booking' },
+      { name: 'Dashboard', path: '/dashboard' },
+    ];
+  })();
 
   return (
     <nav 
@@ -32,21 +52,15 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
-        <Link to="/" className="z-50 flex items-center gap-2 group">
-          <div className="relative">
-             <img 
-               src="https://drive.google.com/uc?export=view&id=146e4xexKKjZEZBGK2RUMq43jHaH0fDLc" 
-               alt="IBIS Studio" 
-               className="h-12 md:h-16 object-contain transition-transform duration-300 group-hover:scale-105"
-               onError={(e) => {
-                 e.target.style.display = 'none';
-                 e.target.nextSibling.style.display = 'block';
-               }}
-             />
-             <div className="hidden text-2xl md:text-3xl font-serif font-bold tracking-wider">
-               <span className="text-ibis-gold">IBIS</span> 
-               <span className="text-white ml-2">STUDIO</span>
-             </div>
+        <Link to="/" className="z-50 flex items-center gap-3 group">
+          <img 
+            src={logo} 
+            alt="IBIS Studio" 
+            className="h-12 md:h-14 object-contain transition-transform duration-300 group-hover:scale-105"
+          />
+          <div className="text-xl md:text-2xl font-serif font-bold tracking-wider">
+            <span className="text-ibis-gold">IBIS</span> 
+            <span className="text-white ml-2">STUDIO</span>
           </div>
         </Link>
 
@@ -66,15 +80,21 @@ const Navbar = () => {
               }`}></span>
             </Link>
           ))}
-          
-          <a 
-            href="https://wa.me/918072319273" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="btn-gold-shine px-6 py-2 rounded-full font-bold text-sm flex items-center gap-2"
-          >
-            <FaWhatsapp className="text-lg" /> CHAT
-          </a>
+          {!token && (
+            <>
+              <Link to="/login" className="text-sm text-gray-300 hover:text-ibis-gold transition">Login</Link>
+              <Link to="/register" className="text-sm text-gray-300 hover:text-ibis-gold transition">Register</Link>
+            </>
+          )}
+          {token && role === 'user' && (
+            <Link to="/dashboard" className="text-sm text-ibis-gold">Hi {userName}</Link>
+          )}
+          {token && role === 'admin' && (
+            <Link to="/admin" className="text-sm text-ibis-gold">Admin</Link>
+          )}
+          {token && (
+            <button onClick={handleLogout} className="text-sm text-gray-300 hover:text-red-400 transition">Logout</button>
+          )}
         </div>
 
         {/* Mobile Menu Button */}

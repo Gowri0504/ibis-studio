@@ -54,6 +54,45 @@ const services = [
   }
 ];
 
+const pricing = [
+  {
+    id: 1,
+    name: 'Wedding Photography – Full Day',
+    detail: 'Candid and traditional coverage, edited images, online gallery',
+    startingFrom: '₹25,000'
+  },
+  {
+    id: 2,
+    name: 'Reception / Event Coverage',
+    detail: 'Up to 4 hours coverage with edited highlights',
+    startingFrom: '₹12,000'
+  },
+  {
+    id: 3,
+    name: 'Maternity / Baby Shoot',
+    detail: 'Studio or outdoor session with curated props',
+    startingFrom: '₹8,000'
+  },
+  {
+    id: 4,
+    name: 'Portfolio / Fashion Shoot',
+    detail: 'Model portfolio with multiple looks and lighting setups',
+    startingFrom: '₹10,000'
+  },
+  {
+    id: 5,
+    name: 'Cinematic Video Package',
+    detail: 'Highlight film with licensed music and color grading',
+    startingFrom: '₹18,000'
+  },
+  {
+    id: 6,
+    name: 'Family / Group Session',
+    detail: 'Indoor or outdoor shoot for families and celebrations',
+    startingFrom: '₹9,500'
+  }
+];
+
 const Services = () => {
   return (
     <div className="min-h-screen pt-24 pb-20 bg-ibis-dark text-white relative overflow-hidden">
@@ -120,6 +159,39 @@ const Services = () => {
               </div>
             </motion.div>
           ))}
+        </div>
+
+        <div className="mt-20">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-3">
+              Photography Price List
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto text-sm md:text-base">
+              Indicative starting prices for popular services. Final quotation will be shared after understanding your exact requirements and dates.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {pricing.map((item) => (
+              <div key={item.id} className="glass-card rounded-2xl p-6 border border-white/10 flex flex-col justify-between">
+                <div>
+                  <div className="text-lg font-semibold text-white mb-2">{item.name}</div>
+                  <div className="text-sm text-gray-400 mb-4">{item.detail}</div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="text-xs uppercase tracking-[0.2em] text-gray-400">Starting From</div>
+                    <div className="text-ibis-gold text-2xl font-bold">{item.startingFrom}</div>
+                  </div>
+                  <Link
+                    to="/booking"
+                    className="px-4 py-2 rounded-full text-xs font-semibold border border-ibis-gold/40 text-ibis-gold hover:bg-ibis-gold hover:text-black transition"
+                  >
+                    Enquire
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

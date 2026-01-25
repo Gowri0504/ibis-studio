@@ -8,6 +8,8 @@ const bookingSchema = new mongoose.Schema({
   time: { type: String, required: true },
   message: { type: String },
   status: { type: String, default: 'Pending' },
+  adminResponse: { type: String },
+  respondedAt: { type: Date },
   createdAt: { type: Date, default: Date.now }
 });
 

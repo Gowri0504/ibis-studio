@@ -10,9 +10,9 @@ export default {
         'ibis-gold': '#D4AF37',
         'ibis-gold-light': '#F4C430',
         'ibis-gold-dark': '#AA8C2C',
-        'ibis-dark': '#0F0F0F',
-        'ibis-card': '#1A1A1A',
-        'ibis-gray': '#2A2A2A',
+        'ibis-dark': '#120E07',      // warm deep cocoa to complement gold
+        'ibis-card': '#1B140A',      // panel background
+        'ibis-gray': '#2A2216',      // subtle separators
       },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],
@@ -20,7 +20,7 @@ export default {
       },
       backgroundImage: {
         'gold-gradient': 'linear-gradient(135deg, #D4AF37 0%, #F4C430 100%)',
-        'dark-gradient': 'linear-gradient(to bottom, #0F0F0F, #1A1A1A)',
+        'dark-gradient': 'linear-gradient(to bottom, #120E07, #1B140A)',
       }
     },
   },
