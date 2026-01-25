@@ -120,7 +120,7 @@ const Booking = () => {
                       value={formData.name}
                       onChange={handleChange}
                       className="w-full bg-black/40 border border-gray-700 rounded-lg py-4 pl-12 pr-4 text-white focus:border-ibis-gold focus:outline-none focus:ring-1 focus:ring-ibis-gold transition-all"
-                      placeholder="John Doe"
+                      placeholder="Gowri D"
                     />
                   </div>
                 </div>
