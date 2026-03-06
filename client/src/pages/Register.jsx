@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { API_BASE_URL } from '../utils/api';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -15,10 +16,11 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:5001/api/auth/register', form);
+      const res = await axios.post(`${API_BASE_URL}/api/auth/register`, form);
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('role', res.data.user.role);
       localStorage.setItem('userName', res.data.user.name);
+      setAlertMsg('Registered successfully');
       if (res.data.user.role === 'admin') navigate('/admin');
       else navigate('/dashboard');
     } catch {

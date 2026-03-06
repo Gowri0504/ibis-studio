@@ -78,12 +78,22 @@ Notes
 - JSON body parsing enabled: server/index.js:15
 
 Frontend Routes
-- /            Home (gold theme, service grid, retouching section)
-- /services    Services showcase
-- /booking     Booking form
+- /            Home (gold theme, responsive hero, infinite carousel, testimonials, FAQ)
+- /services    Services showcase with improved cards
+- /booking     Booking form with WhatsApp redirect
 - /about       Studio background
-- /contact     Address + Google Maps + WhatsApp link
+- /contact     Address + Styled Google Maps + WhatsApp link
 - /login       User/Admin login
 - /register    User/Admin registration
 - /dashboard   User: My Media (download)
 - /admin       Admin: Upload media, manage users/bookings
+
+Recent Updates (2026-03-06)
+- Fixed homepage layout: Removed center gaps on wide screens, improved hero responsiveness.
+- Carousel: Implemented auto-rotating infinite scroll in WorkCarousel component and fixed broken image links.
+- API Configuration: Centralized API_BASE_URL in src/utils/api.js for better environment management.
+- New Homepage Sections: Added Testimonials, FAQ, and a Call to Action section.
+- Visual Fixes: Improved hero animations, stylized Google Maps, and fixed broken image placeholders.
+- Service Check: Verified API endpoints and updated frontend to use centralized API config.
+- Navbar: Restyled Login/Register links into prominent buttons.
+- Gallery: Redesigned page with a dynamic, masonry-style grid, hover effects, and a "Load More" feature.

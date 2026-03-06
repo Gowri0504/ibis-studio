@@ -97,10 +97,10 @@ const Contact = () => {
             className="h-[500px] glass-card rounded-2xl overflow-hidden p-2 relative"
           >
              <iframe 
-               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.667822453629!2d80.0899!3d12.9291!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU1JzQ0LjgiTiA4MMKwMDUnMjMuNiJF!5e0!3m2!1sen!2sin!4v1635763200000!5m2!1sen!2sin" 
+               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.667822453629!2d80.0899!3d12.9291!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52f50000000001%3A0x1d43d11b3okfSsk7!2sIbis%20Studio!5e0!3m2!1sen!2sin!4v1635763200000!5m2!1sen!2sin" 
                width="100%" 
                height="100%" 
-               style={{ border: 0, borderRadius: '1rem', filter: 'invert(90%) hue-rotate(180deg)' }} 
+               style={{ border: 0, borderRadius: '1rem', filter: 'invert(90%) hue-rotate(180deg) contrast(1.1) brightness(0.9)' }} 
                allowFullScreen="" 
                loading="lazy"
                title="IBIS Studio Location"

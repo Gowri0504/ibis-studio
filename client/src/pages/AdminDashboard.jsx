@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import { API_BASE_URL } from '../utils/api';
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -12,10 +13,10 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios.get('http://localhost:5001/api/admin/users', {
+    axios.get(`${API_BASE_URL}/api/admin/users`, {
       headers: { Authorization: `Bearer ${token}` }
     }).then(res => setUsers(res.data)).catch(() => setUsers([]));
-    axios.get('http://localhost:5001/api/admin/bookings', {
+    axios.get(`${API_BASE_URL}/api/admin/bookings`, {
       headers: { Authorization: `Bearer ${token}` }
     }).then(res => setBookings(res.data)).catch(() => setBookings([]));
   }, []);
@@ -31,12 +32,12 @@ const AdminDashboard = () => {
         fd.append('title', form.title);
         fd.append('type', form.type);
         fd.append('file', file);
-        await axios.post('http://localhost:5001/api/admin/media', fd, {
+        await axios.post(`${API_BASE_URL}/api/admin/media`, fd, {
           headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' }
         });
       } else {
         const payload = { userEmail: form.userEmail, title: form.title, type: form.type, driveLink: form.driveLink || form.url, url: form.url };
-        await axios.post('http://localhost:5001/api/admin/media', payload, {
+        await axios.post(`${API_BASE_URL}/api/admin/media`, payload, {
           headers: { Authorization: `Bearer ${token}` }
         });
       }
@@ -52,11 +53,11 @@ const AdminDashboard = () => {
     e.preventDefault();
     const token = localStorage.getItem('token');
     try {
-      await axios.patch(`http://localhost:5001/api/admin/bookings/${reply.id}`, {
+      await axios.patch(`${API_BASE_URL}/api/admin/bookings/${reply.id}`, {
         status: reply.status,
         adminResponse: reply.adminResponse
       }, { headers: { Authorization: `Bearer ${token}` } });
-      const res = await axios.get('http://localhost:5001/api/admin/bookings', {
+      const res = await axios.get(`${API_BASE_URL}/api/admin/bookings`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setBookings(res.data);

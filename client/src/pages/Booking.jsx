@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { FaCalendarAlt, FaClock, FaUser, FaPhone, FaCamera, FaCheckCircle, FaComments } from 'react-icons/fa';
+import { API_BASE_URL } from '../utils/api';
 
 const Booking = () => {
   const [formData, setFormData] = useState({
@@ -24,7 +25,7 @@ const Booking = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post('http://localhost:5001/api/bookings', formData);
+      await axios.post(`${API_BASE_URL}/api/bookings`, formData);
       
       const text = `Hi IBIS Studio, I want to book a photoshoot.%0AName: ${formData.name}%0AService: ${formData.serviceType}%0ADate: ${formData.date}`;
       window.open(`https://wa.me/918072319273?text=${text}`, '_blank');

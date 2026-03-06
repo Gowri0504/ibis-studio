@@ -10,6 +10,11 @@ const bookingSchema = new mongoose.Schema({
   status: { type: String, default: 'Pending' },
   adminResponse: { type: String },
   respondedAt: { type: Date },
+  userReview: {
+    rating: { type: Number, min: 1, max: 5 },
+    comment: { type: String },
+    createdAt: { type: Date }
+  },
   createdAt: { type: Date, default: Date.now }
 });
 

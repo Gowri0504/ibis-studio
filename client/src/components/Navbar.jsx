@@ -81,10 +81,10 @@ const Navbar = () => {
             </Link>
           ))}
           {!token && (
-            <>
-              <Link to="/login" className="text-sm text-gray-300 hover:text-ibis-gold transition">Login</Link>
-              <Link to="/register" className="text-sm text-gray-300 hover:text-ibis-gold transition">Register</Link>
-            </>
+            <div className="flex items-center gap-4">
+              <Link to="/login" className="text-sm text-gray-300 hover:text-white transition-colors border border-ibis-gold/30 px-4 py-2 rounded-full hover:bg-ibis-gold/10">Login</Link>
+              <Link to="/register" className="btn-gold-shine text-sm font-bold px-4 py-2 rounded-full">Register</Link>
+            </div>
           )}
           {token && role === 'user' && (
             <Link to="/dashboard" className="text-sm text-ibis-gold">Hi {userName}</Link>
