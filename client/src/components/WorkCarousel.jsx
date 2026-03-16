@@ -21,14 +21,14 @@ const workItems = [
     id: 3,
     title: 'Candid Moments',
     category: 'Event',
-    image: 'https://images.unsplash.com/photo-1523438885209-e0793309c961?q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=800',
     link: 'https://drive.google.com/drive/folders/1FgmzeIcwFm5OmBNI5Yss36J4cne5WxxI?usp=sharing'
   },
   {
     id: 4,
     title: 'Cinematic Films',
     category: 'Video',
-    image: 'https://images.unsplash.com/photo-1593697821252-a2c973773d8d?q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1509343256512-d77a5cb3791b?q=80&w=800',
     link: 'https://youtu.be/SyDuzDIzAgY?si=o1Fx2XBJCvGRCkgM'
   }
 ];

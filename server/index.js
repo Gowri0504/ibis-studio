@@ -53,8 +53,8 @@ async function connectDB() {
 }
 async function ensureAdmin() {
   try {
-    const email = process.env.ADMIN_EMAIL || 'admin@ibis.com';
-    const password = process.env.ADMIN_PASSWORD||'admin@ibis';
+    const email = process.env.ADMIN_EMAIL || 'admin2@ibis.local';
+    const password = process.env.ADMIN_PASSWORD || 'admin123';
     if (!password) {
       console.log('ADMIN_PASSWORD not set; skipping admin seeding');
       return;

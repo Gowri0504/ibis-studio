@@ -22,6 +22,7 @@ const Navbar = () => {
     { name: 'About', path: '/about' },
     { name: 'Services', path: '/services' },
     { name: 'Gallery', path: '/gallery' },
+    { name: 'Studio Lab', path: '/studiolab' },
     { name: 'Contact', path: '/contact' },
   ];
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;

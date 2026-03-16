@@ -3,12 +3,14 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { API_BASE_URL } from '../utils/api';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [alertMsg, setAlertMsg] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -39,9 +41,12 @@ const Login = () => {
               <label className="block text-sm text-gray-400 mb-2">Email</label>
               <input name="email" type="email" value={form.email} onChange={onChange} className="w-full bg-black/40 border border-gray-700 rounded-lg p-3 text-white" required />
             </div>
-            <div>
+            <div className="relative">
               <label className="block text-sm text-gray-400 mb-2">Password</label>
-              <input name="password" type="password" value={form.password} onChange={onChange} className="w-full bg-black/40 border border-gray-700 rounded-lg p-3 text-white" required />
+              <input name="password" type={showPassword ? 'text' : 'password'} value={form.password} onChange={onChange} className="w-full bg-black/40 border border-gray-700 rounded-lg p-3 text-white pr-10" required />
+              <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute inset-y-0 right-0 top-7 flex items-center px-3 text-gray-400 hover:text-white">
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
             </div>
             <button type="submit" disabled={loading} className="w-full btn-gold-shine text-black font-bold py-3 rounded-lg">{loading ? 'Authenticating...' : 'Login'}</button>
           </form>

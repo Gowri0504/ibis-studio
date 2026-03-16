@@ -13,6 +13,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import UserDashboard from './pages/UserDashboard';
 import AdminDashboard from './pages/AdminDashboard';
+import StudioLab from './pages/StudioLab';
 
 function App() {
   const canvasRef = useRef(null);
@@ -120,6 +121,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/studiolab" element={<StudioLab />} />
         </Routes>
       </main>
       <Footer />

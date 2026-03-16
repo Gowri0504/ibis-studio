@@ -16,8 +16,8 @@ Setup
 - Start frontend: cd client && npm run dev
 
 Admin Login
-- Email: admin@ibis.local
-- Password: Admin@123
+- Email: admin2@ibis.local
+- Password: admin123
 - Admin panel: http://localhost:5173/admin
 - Note: Admin is auto-seeded on server start when ADMIN_PASSWORD is set
 
