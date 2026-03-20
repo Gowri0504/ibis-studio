@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import { motion, useAnimation, useMotionValue } from 'framer-motion';
+import React, { useEffect } from 'react';
+import { motion, useAnimation } from 'framer-motion';
 import { FaGoogleDrive, FaExternalLinkAlt } from 'react-icons/fa';
 
 const workItems = [
@@ -37,7 +37,6 @@ const workItems = [
 const infiniteItems = [...workItems, ...workItems, ...workItems];
 
 const WorkCarousel = () => {
-  const containerRef = useRef(null);
   const controls = useAnimation();
 
   useEffect(() => {

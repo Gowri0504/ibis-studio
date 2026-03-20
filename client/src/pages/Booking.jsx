@@ -9,10 +9,18 @@ const Booking = () => {
     name: '',
     phone: '',
     serviceType: 'Wedding Photography',
+    vibe: 'Cinematic',
     date: '',
     time: '',
     message: ''
   });
+
+  const vibes = [
+    { name: 'Cinematic', img: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=400', desc: 'Dramatic lighting and rich tones' },
+    { name: 'Natural', img: 'https://images.unsplash.com/photo-1511285560982-1356c11d4606?q=80&w=400', desc: 'Soft light and authentic moments' },
+    { name: 'Vintage', img: 'https://images.unsplash.com/photo-1520975916090-3105956daf54?q=80&w=400', desc: 'Retro colors and timeless feel' },
+    { name: 'Editorial', img: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=400', desc: 'High-fashion and bold composition' }
+  ];
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [alertMsg, setAlertMsg] = useState('');
@@ -191,6 +199,35 @@ const Booking = () => {
                       className="w-full bg-black/40 border border-gray-700 rounded-lg py-4 pl-12 pr-4 text-white focus:border-ibis-gold focus:outline-none focus:ring-1 focus:ring-ibis-gold transition-all"
                     />
                   </div>
+                </div>
+              </div>
+
+              <div className="group">
+                <label className="block text-gray-400 text-sm mb-4 ml-1 uppercase tracking-widest">Select Your Visual Vibe</label>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {vibes.map(v => (
+                    <button 
+                      type="button"
+                      key={v.name}
+                      onClick={() => setFormData({...formData, vibe: v.name})}
+                      className={`relative group rounded-xl overflow-hidden border-2 transition-all ${
+                        formData.vibe === v.name ? 'border-ibis-gold shadow-[0_0_15px_rgba(212,175,55,0.3)]' : 'border-transparent'
+                      }`}
+                    >
+                      <img src={v.img} alt={v.name} className="w-full h-24 md:h-32 object-cover transition-transform group-hover:scale-110" />
+                      <div className={`absolute inset-0 flex flex-col items-center justify-center p-2 text-center transition-opacity ${
+                        formData.vibe === v.name ? 'bg-black/60 opacity-100' : 'bg-black/40 opacity-0 group-hover:opacity-100'
+                      }`}>
+                        <div className="font-bold text-xs md:text-sm text-white">{v.name}</div>
+                        <div className="text-[8px] md:text-[10px] text-ibis-gold mt-1 hidden md:block">{v.desc}</div>
+                      </div>
+                      {formData.vibe === v.name && (
+                        <div className="absolute top-2 right-2 w-5 h-5 bg-ibis-gold rounded-full flex items-center justify-center text-black shadow-lg">
+                          <FaCheckCircle size={12} />
+                        </div>
+                      )}
+                    </button>
+                  ))}
                 </div>
               </div>
 

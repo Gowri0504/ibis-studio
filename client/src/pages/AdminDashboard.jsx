@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { API_BASE_URL } from '../utils/api';
+import { FaUsers, FaCalendarCheck, FaRupeeSign, FaChartBar, FaStar } from 'react-icons/fa';
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -10,6 +11,15 @@ const AdminDashboard = () => {
   const [reply, setReply] = useState({ id: '', status: 'Approved', adminResponse: '' });
   const [alertMsg, setAlertMsg] = useState('');
   const [file, setFile] = useState(null);
+
+  const stats = {
+    totalUsers: users.length,
+    totalBookings: bookings.length,
+    pendingBookings: bookings.filter(b => b.status === 'Pending').length,
+    estimatedRevenue: bookings.filter(b => b.status === 'Approved').length * 15000,
+    avgRating: (bookings.filter(b => b.userReview?.rating).reduce((acc, curr) => acc + curr.userReview.rating, 0) / 
+                (bookings.filter(b => b.userReview?.rating).length || 1)).toFixed(1)
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -72,7 +82,34 @@ const AdminDashboard = () => {
     <div className="min-h-screen pt-28 pb-20 bg-ibis-dark text-white">
       <div className="container mx-auto px-6">
         <h1 className="text-4xl font-serif font-bold mb-6">Admin Panel</h1>
-        <p className="text-gray-400 mb-12">Upload client media, manage users, and respond to bookings.</p>
+        <p className="text-gray-400 mb-12">Monitor studio performance and manage all operations from one place.</p>
+
+        {/* Analytics Section */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          {[
+            { label: 'Total Clients', value: stats.totalUsers, icon: <FaUsers />, color: 'from-blue-500/20 to-blue-600/5' },
+            { label: 'Total Bookings', value: stats.totalBookings, icon: <FaCalendarCheck />, color: 'from-ibis-gold/20 to-ibis-gold/5' },
+            { label: 'Pending Requests', value: stats.pendingBookings, icon: <FaChartBar />, color: 'from-orange-500/20 to-orange-600/5' },
+            { label: 'Estimated Revenue', value: `₹${stats.estimatedRevenue.toLocaleString()}`, icon: <FaRupeeSign />, color: 'from-green-500/20 to-green-600/5' }
+          ].map((stat, i) => (
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              className={`glass-card p-6 rounded-2xl border border-white/10 bg-gradient-to-br ${stat.color} relative overflow-hidden group`}
+            >
+              <div className="absolute top-0 right-0 p-4 text-white/5 group-hover:text-white/10 transition-colors">
+                {React.cloneElement(stat.icon, { size: 60 })}
+              </div>
+              <div className="text-gray-400 text-xs uppercase tracking-widest mb-2">{stat.label}</div>
+              <div className="text-3xl font-bold text-white">{stat.value}</div>
+              <div className="mt-4 flex items-center gap-1 text-[10px] text-ibis-gold uppercase tracking-tighter font-semibold">
+                Live Data <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-6 rounded-2xl border border-white/10 mb-10">
           <h2 className="text-2xl font-serif font-bold mb-4">Upload Media to User</h2>

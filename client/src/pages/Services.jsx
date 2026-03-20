@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaRing, FaBaby, FaCamera, FaUserTie, FaBuilding, FaVideo } from 'react-icons/fa';
+import { FaRing, FaBaby, FaCamera, FaUserTie, FaBuilding, FaVideo, FaCalculator, FaCheckCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const services = [
@@ -94,6 +94,33 @@ const pricing = [
 ];
 
 const Services = () => {
+  const [calc, setCalc] = useState({
+    service: 'Wedding',
+    hours: 4,
+    location: 'Studio',
+    extras: []
+  });
+
+  const getEstimate = () => {
+    let base = calc.service === 'Wedding' ? 15000 : calc.service === 'Event' ? 8000 : 5000;
+    let hourly = calc.service === 'Wedding' ? 3000 : 2000;
+    let total = base + (calc.hours * hourly);
+    if (calc.location === 'Outdoor') total += 3000;
+    if (calc.extras.includes('Cinematic Retouching')) total += 5000;
+    if (calc.extras.includes('Physical Album')) total += 8000;
+    if (calc.extras.includes('Drone Coverage')) total += 10000;
+    return total.toLocaleString('en-IN');
+  };
+
+  const toggleExtra = (extra) => {
+    setCalc(prev => ({
+      ...prev,
+      extras: prev.extras.includes(extra) 
+        ? prev.extras.filter(e => e !== extra) 
+        : [...prev.extras, extra]
+    }));
+  };
+
   return (
     <div className="min-h-screen pt-24 pb-20 bg-ibis-dark text-white relative overflow-hidden">
       <div className="grain-overlay"></div>
@@ -193,6 +220,109 @@ const Services = () => {
             ))}
           </div>
         </div>
+
+        {/* Innovative Feature: Interactive Pricing Calculator */}
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-32 glass-card rounded-3xl p-8 md:p-12 border border-ibis-gold/20 relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 w-64 h-64 bg-ibis-gold/5 rounded-full blur-[100px] -mr-32 -mt-32"></div>
+          
+          <div className="flex flex-col lg:flex-row gap-12 relative z-10">
+            <div className="lg:w-1/2">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-ibis-gold/10 flex items-center justify-center text-ibis-gold text-2xl">
+                  <FaCalculator />
+                </div>
+                <h2 className="text-3xl font-serif font-bold">Price Estimator</h2>
+              </div>
+              <p className="text-gray-400 mb-8 leading-relaxed">
+                Use our interactive tool to get an instant estimate for your customized session. Select your service, duration, and any premium add-ons you desire.
+              </p>
+
+              <div className="space-y-8">
+                <div>
+                  <label className="block text-sm font-medium text-gray-400 mb-4 uppercase tracking-wider">Type of Service</label>
+                  <div className="flex flex-wrap gap-3">
+                    {['Wedding', 'Event', 'Portrait'].map(s => (
+                      <button 
+                        key={s}
+                        onClick={() => setCalc({...calc, service: s})}
+                        className={`px-6 py-2 rounded-full text-sm font-semibold border transition-all ${
+                          calc.service === s 
+                          ? 'bg-ibis-gold border-ibis-gold text-black shadow-[0_0_15px_rgba(212,175,55,0.4)]' 
+                          : 'border-white/10 text-gray-400 hover:border-ibis-gold/50'
+                        }`}
+                      >
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-400 mb-4 uppercase tracking-wider">Coverage Duration: {calc.hours} Hours</label>
+                  <input 
+                    type="range" min="1" max="12" step="1" 
+                    value={calc.hours}
+                    onChange={(e) => setCalc({...calc, hours: parseInt(e.target.value)})}
+                    className="w-full accent-ibis-gold h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer"
+                  />
+                  <div className="flex justify-between text-[10px] text-gray-500 mt-2 uppercase tracking-widest">
+                    <span>1 Hr</span>
+                    <span>6 Hrs</span>
+                    <span>12 Hrs</span>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-400 mb-4 uppercase tracking-wider">Premium Add-ons</label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {['Cinematic Retouching', 'Physical Album', 'Drone Coverage'].map(extra => (
+                      <button 
+                        key={extra}
+                        onClick={() => toggleExtra(extra)}
+                        className={`flex items-center gap-3 p-3 rounded-xl border text-left transition-all ${
+                          calc.extras.includes(extra)
+                          ? 'bg-ibis-gold/10 border-ibis-gold text-ibis-gold'
+                          : 'border-white/5 text-gray-400 hover:border-white/20'
+                        }`}
+                      >
+                        <div className={`w-5 h-5 rounded flex items-center justify-center border ${
+                          calc.extras.includes(extra) ? 'bg-ibis-gold border-ibis-gold text-black' : 'border-white/20'
+                        }`}>
+                          {calc.extras.includes(extra) && <FaCheckCircle size={12} />}
+                        </div>
+                        <span className="text-sm font-medium">{extra}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:w-1/2 flex flex-col justify-center">
+              <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl p-8 text-center relative overflow-hidden group">
+                <div className="absolute inset-0 bg-ibis-gold/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-2">Estimated Investment</div>
+                <div className="text-5xl md:text-6xl font-serif font-bold text-gradient-gold mb-4">
+                  ₹{getEstimate()}
+                </div>
+                <p className="text-xs text-gray-500 mb-8 max-w-xs mx-auto italic">
+                  *This is an indicative estimate. Travel and specific venue requirements may apply.
+                </p>
+                <Link 
+                  to="/booking" 
+                  className="btn-gold-shine w-full py-4 rounded-xl font-bold text-black uppercase tracking-widest inline-block"
+                >
+                  Proceed to Booking
+                </Link>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </div>
   );

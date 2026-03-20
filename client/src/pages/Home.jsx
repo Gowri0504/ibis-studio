@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import BeforeAfterSlider from '../components/BeforeAfterSlider';
@@ -24,7 +24,6 @@ const ServiceCard = ({ icon, title, desc, delay }) => (
 const Home = () => {
   const ownerName = 'IBIS Studio';
   const carouselRef = useRef(null);
-  const [mood, setMood] = useState('Cinematic');
   const scrollBy = (dx) => {
     if (carouselRef.current) {
       carouselRef.current.scrollBy({ left: dx, behavior: 'smooth' });
